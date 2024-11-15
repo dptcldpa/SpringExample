@@ -22,7 +22,7 @@ public class NewUserController {
 
 	// 사용자 추가 API
 	@ResponseBody
-	@PostMapping("/ajax/user/create")
+	@PostMapping("/create")
 	public Map<String, String> createUser(
 			@RequestParam("name") String name
 			,@RequestParam("birthday") String birthday
@@ -46,6 +46,7 @@ public class NewUserController {
 		
 	}
 	
+	// View
 	@GetMapping("/input")
 	public String userInput(){
 		
