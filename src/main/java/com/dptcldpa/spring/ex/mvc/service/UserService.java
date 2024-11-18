@@ -36,4 +36,18 @@ public class UserService {
 		return user;
 	}
 	
+	
+	// 이메일을 전달받고, 이전에 있었는지 없었는지 확인
+	public boolean isDuplicateEmail(String email) {
+		
+		int count = userRepository.countByEmail(email);
+		
+		if(count > 0) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
 }
