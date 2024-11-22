@@ -1,5 +1,8 @@
 package com.dptcldpa.spring.ex.jpa;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dptcldpa.spring.ex.jpa.domain.Student;
+import com.dptcldpa.spring.ex.jpa.repository.StudentRepository;
 import com.dptcldpa.spring.ex.jpa.service.StudentService;
 
 @RequestMapping("/jpa/student")
@@ -15,6 +19,11 @@ public class StudentController {
 	
 	@Autowired
 	private StudentService studentService;
+	
+	// 절대 Controller에서 Respository 활용하면 안됨
+	// 임시로 이번만 하는 것!!!!
+	@Autowired
+	private StudentRepository studentRepository;
 	
 	// create, update, delete
 	
@@ -52,6 +61,38 @@ public class StudentController {
 		studentService.deleteStudent(3);
 		
 		return "삭제!";
+		
+	}
+	
+	// select
+	@ResponseBody
+	@GetMapping("/find")
+	public List<Student> findStudent() {
+		
+		List<Student> studentList =  null;
+		// 모든 행 조회
+//		List<Student> studentList =  studentRepository.findAll();
+		
+		// 모든 행을 id 컬럼 내림차순으로 조회
+//		studentList = studentRepository.findAllByOrderByIdDesc();
+		
+//		studentList = studentRepository.findTop2ByOrderByIdDesc();
+		
+//		studentList = studentRepository.findByName("김인규");
+		
+		List<String> nameList = new ArrayList<>();
+		nameList.add("유재석");
+		nameList.add("조세호");
+		
+//		studentList = studentRepository.findByNameIn(nameList);
+		
+//		studentList = studentRepository.findByEmailContaining("gmail");
+		
+//		studentList = studentRepository.findByIdBetweenOrderByIdDesc(2, 5);
+		
+		studentList = studentRepository.selectByDreamJob("모델");
+		
+		return studentList;
 		
 	}
 	
